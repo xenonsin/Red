@@ -15,11 +15,12 @@ public class CharacterControllerIso : MonoBehaviour {
     private bool dashed;
     private float dashCoolDown = 2.0f;
 
-    private bool _grounded;
+    private SpriteManager _spriteManager;
 
 	// Use this for initialization
 	void Start () {
         _canMove = true;
+        _spriteManager = this.GetComponent<SpriteManager>();
 	
 	}
 	
@@ -36,19 +37,25 @@ public class CharacterControllerIso : MonoBehaviour {
 
         //Makes sure the player faces the direction they're moving.
        if (moveDirection != Vector3.zero)
-           transform.rotation = Quaternion.Slerp( transform.rotation, Quaternion.LookRotation(moveDirection), Time.deltaTime * roationSpeed);
-
+       {
+           _spriteManager.IsWalking = true;
+           transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), Time.deltaTime * roationSpeed);
+       }
+       else
+           _spriteManager.IsWalking = false;
+       Debug.Log(moveDirection);
         //try to move where mouse is facing?
        if(_canMove)
             rigidbody.MovePosition(rigidbody.position + moveDirection.normalized * speed * Time.deltaTime);
 
+        /*
        if (!dashed && Input.GetKey(KeyCode.Space))
        {
            dashed = true;
            rigidbody.AddForce(transform.forward * 50f, ForceMode.Impulse);
            StartCoroutine(CoolDown(() => dashed = false, dashCoolDown));
        }
-
+        */
       }
 
     public IEnumerator CoolDown(System.Action operation, float coolDown)
