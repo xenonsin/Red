@@ -5,6 +5,25 @@ using System.Collections;
 public class SpriteManager : MonoBehaviour
 {
 
+    public string[] directions = new string[]
+    {
+        "N",
+        "NE",
+        "E",
+        "SE",
+        "S",
+        "SW",
+        "W",
+        "NW",
+    };
+
+    public string[] states = new string[]
+    {
+        "Idle",
+        "Walking",
+        "Attacking",
+    };
+
     private Animator _animator;
 
     private int _currentDirection;
@@ -24,10 +43,15 @@ public class SpriteManager : MonoBehaviour
     {
         GetCurrentDirection();
 
+
         if (IsWalking)
             _animator.SetBool("Walking", true);
         else
             _animator.SetBool("Walking", false);
+
+        _animator.Play(directions[_currentDirection] + " - Idle" );
+
+        
     }
 
     void GetCurrentDirection()
@@ -44,7 +68,6 @@ public class SpriteManager : MonoBehaviour
 
         _currentDirection = Mathf.FloorToInt(arrayIndexFloat);
 
-        _animator.SetInteger("Direction", _currentDirection);
-        
+        _animator.SetInteger("Direction", _currentDirection);    
     }
 }
