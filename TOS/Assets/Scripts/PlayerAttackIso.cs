@@ -8,6 +8,7 @@ public class PlayerAttackIso : MonoBehaviour {
     private float attackDelay = 0.5f;
 
     private SpriteManager _spriteManager;
+    private CharacterControllerIso _characterController;
 
     private Vector3 newPos;
 
@@ -15,6 +16,7 @@ public class PlayerAttackIso : MonoBehaviour {
 	void Start () {
 
         _spriteManager = this.GetComponent<SpriteManager>();
+        _characterController = this.GetComponent<CharacterControllerIso>();
 	
 	}
 	
@@ -23,8 +25,12 @@ public class PlayerAttackIso : MonoBehaviour {
 
         if(Input.GetMouseButtonDown(0) && !_spriteManager.IsAttacking)
         {
+            if (!_spriteManager.IsWalking)
             TurnTowardsMouse();
+
+
             _spriteManager.IsAttacking = true;
+           // _characterController.CanMove = false;
         }
         
 
@@ -44,6 +50,8 @@ public class PlayerAttackIso : MonoBehaviour {
 
     void TurnTowardsMouse()
     {
+        //not rotating when raycast doesnt hit anything. maybe just take mouse position?
+
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit))

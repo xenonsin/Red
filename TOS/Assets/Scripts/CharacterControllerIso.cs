@@ -15,6 +15,10 @@ public class CharacterControllerIso : MonoBehaviour {
     [SerializeField]
     private bool _canMove;
     public bool CanMove { get { return _canMove; } set { _canMove = value; } }
+
+    public bool isStandingStill { get; set; }
+
+
     private bool dashed;
     private float dashCoolDown = 2.0f;
 
@@ -58,7 +62,7 @@ public class CharacterControllerIso : MonoBehaviour {
            if (!dashed && Input.GetKey(KeyCode.Space))
            {
                dashed = true;
-               rigidbody.AddForce(transform.forward * 30f, ForceMode.Impulse);
+               rigidbody.AddForce(transform.forward * 20f, ForceMode.Impulse);
                StartCoroutine(CoolDown(() => dashed = false, dashCoolDown));
            }
        }

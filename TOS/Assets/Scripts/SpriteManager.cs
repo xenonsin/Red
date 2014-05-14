@@ -124,7 +124,8 @@ public class SpriteManager : MonoBehaviour
             yield return null; // wait for next flame. will check until animator has stopped playing.
         }
         //do stuff after animation is done.
-        _characterController.CanMove = true;
         IsAttacking = false;
+        _characterController.CanMove = true;
+        
     }
 }
