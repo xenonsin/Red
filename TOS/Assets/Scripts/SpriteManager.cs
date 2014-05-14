@@ -1,39 +1,48 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
+[RequireComponent(typeof(CharacterControllerIso))]
 public class SpriteManager : MonoBehaviour
 {
 
-    public string[] directions = new string[]
+    private string[] directions = new string[]
     {
-        "N",
-        "NE",
-        "E",
-        "SE",
+        "N", 
+        "NW", //NE, it calls the NW animation but the sprite is flipped
+        "W", //E
+        "SW", //SE
         "S",
         "SW",
         "W",
         "NW",
     };
 
-    public string[] states = new string[]
+    private string[] states = new string[]
     {
         "Idle",
-        "Walking",
-        "Attacking",
+        "Walk",
+        "Attack",
     };
 
-    private Animator _animator;
+    private tk2dSpriteAnimator _animator;
+    private tk2dSprite _sprite;
+    private Vector3 _spriteDefaultScale;
+    private  CharacterControllerIso _characterController;
 
     private int _currentDirection;
+    private int _currentState;
+    private string _currentAnimation;
 
     public bool IsWalking { get; set; }
+    public bool IsAttacking { get; set; }
 
     // Use this for initialization
     void Start()
     {
-        _animator = this.GetComponentInChildren<Animator>();
+        _animator = this.GetComponentInChildren<tk2dSpriteAnimator>();
+        _sprite = this.GetComponentInChildren<tk2dSprite>();
+        _characterController = this.GetComponent<CharacterControllerIso>();
+        _spriteDefaultScale = _sprite.scale;
 
 
     }
@@ -42,14 +51,36 @@ public class SpriteManager : MonoBehaviour
     void Update()
     {
         GetCurrentDirection();
+        FlipSpriteWhenFacingEast();
 
 
-        if (IsWalking)
-            _animator.SetBool("Walking", true);
+        if (IsAttacking)
+            _currentState = 2;
+        else if (IsWalking)
+           _currentState = 1;
         else
-            _animator.SetBool("Walking", false);
+           _currentState = 0;
 
-        _animator.Play(directions[_currentDirection] + " - Idle" );
+        
+
+        if(IsAttacking && _characterController.CanMove)
+        {
+            _characterController.CanMove = false;
+            _animator.Play(states[_currentState] + " - " + directions[_currentDirection]);
+            StartCoroutine(WaitForAnimationToComplete());
+            
+        }
+        else if (_characterController.CanMove)
+            _animator.Play(states[_currentState] + " - " + directions[_currentDirection]);
+
+        
+
+
+           
+        _currentAnimation = directions[_currentDirection] + " - " + states[_currentState];
+
+        
+
 
         
     }
@@ -68,6 +99,32 @@ public class SpriteManager : MonoBehaviour
 
         _currentDirection = Mathf.FloorToInt(arrayIndexFloat);
 
-        _animator.SetInteger("Direction", _currentDirection);    
+       
+    }
+
+    void FlipSpriteWhenFacingEast()
+    {
+        if (_currentDirection == 1 || _currentDirection == 2 || _currentDirection == 3)
+            _sprite.scale = new Vector3(_spriteDefaultScale.x * -1, _spriteDefaultScale.y, _spriteDefaultScale.z);
+        else
+            _sprite.scale = _spriteDefaultScale;
+    }
+
+
+    IEnumerator Wait(System.Action operation, float coolDown)
+    {
+        yield return new WaitForSeconds(coolDown);
+        operation();
+    }
+
+    IEnumerator WaitForAnimationToComplete()
+    {
+        while (_animator.Playing)
+        {
+            yield return null; // wait for next flame. will check until animator has stopped playing.
+        }
+        //do stuff after animation is done.
+        _characterController.CanMove = true;
+        IsAttacking = false;
     }
 }

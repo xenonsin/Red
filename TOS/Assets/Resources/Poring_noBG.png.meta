@@ -1,0 +1,630 @@
+fileFormatVersion: 2
+guid: c1138e7218a5ba74797aefa0c780c3a0
+TextureImporter:
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: 0
+    aniso: 1
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Poring_noBG_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 511
+        width: 37
+        height: 36
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_1
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 511
+        width: 39
+        height: 37
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_2
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 510
+        width: 41
+        height: 39
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_3
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 511
+        width: 39
+        height: 33
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_4
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 510
+        width: 37
+        height: 36
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_5
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 509
+        width: 39
+        height: 37
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_6
+      rect:
+        serializedVersion: 2
+        x: 371
+        y: 509
+        width: 41
+        height: 39
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_7
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 509
+        width: 39
+        height: 33
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_11
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 454
+        width: 37
+        height: 31
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_12
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 454
+        width: 39
+        height: 30
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_13
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 454
+        width: 41
+        height: 30
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_14
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 453
+        width: 35
+        height: 31
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_15
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 454
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_16
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 454
+        width: 36
+        height: 31
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_17
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 453
+        width: 37
+        height: 31
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_18
+      rect:
+        serializedVersion: 2
+        x: 373
+        y: 453
+        width: 35
+        height: 31
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_22
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 395
+        width: 37
+        height: 31
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_23
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 395
+        width: 39
+        height: 30
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_24
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 395
+        width: 41
+        height: 30
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_25
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 396
+        width: 35
+        height: 31
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_26
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 395
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_27
+      rect:
+        serializedVersion: 2
+        x: 258
+        y: 395
+        width: 36
+        height: 31
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_28
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 395
+        width: 37
+        height: 31
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_29
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 394
+        width: 35
+        height: 31
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_31
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 308
+        width: 63
+        height: 49
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_36
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 309
+        width: 37
+        height: 36
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_37
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 310
+        width: 39
+        height: 32
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_40
+      rect:
+        serializedVersion: 2
+        x: 457
+        y: 299
+        width: 88
+        height: 31
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_42
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 302
+        width: 82
+        height: 66
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_44
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 297
+        width: 87
+        height: 67
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_51
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 197
+        width: 63
+        height: 52
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_55
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 206
+        width: 37
+        height: 36
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_56
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 205
+        width: 38
+        height: 31
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_60
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 187
+        width: 83
+        height: 63
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_63
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 186
+        width: 86
+        height: 65
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_67
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 189
+        width: 88
+        height: 30
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_71
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 115
+        width: 33
+        height: 27
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_72
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 115
+        width: 33
+        height: 27
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_73
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 115
+        width: 33
+        height: 28
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_74
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 115
+        width: 33
+        height: 27
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_75
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 116
+        width: 33
+        height: 26
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_76
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 115
+        width: 33
+        height: 26
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_78
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 89
+        width: 8
+        height: 23
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_79
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 91
+        width: 17
+        height: 18
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_80
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 92
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_81
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 94
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_82
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 91
+        width: 27
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_84
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 65
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_85
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 66
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_86
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 63
+        width: 18
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_87
+      rect:
+        serializedVersion: 2
+        x: 301
+        y: 61
+        width: 15
+        height: 21
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_88
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 64
+        width: 18
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_89
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 61
+        width: 15
+        height: 21
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_90
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 63
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_91
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 61
+        width: 14
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_95
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 16
+        width: 20
+        height: 14
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_96
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 23
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_97
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 15
+        width: 18
+        height: 13
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_98
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 5
+        width: 37
+        height: 36
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_99
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 16
+        width: 23
+        height: 15
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_100
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 16
+        width: 11
+        height: 22
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_101
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 9
+        width: 12
+        height: 25
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_102
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 7
+        width: 33
+        height: 32
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_103
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 11
+        width: 12
+        height: 25
+      alignment: 0
+      pivot: {x: .5, y: .5}
+    - name: Poring_noBG_104
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 11
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: .5, y: .5}
+  spritePackingTag: 
+  userData: 

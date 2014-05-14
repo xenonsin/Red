@@ -6,6 +6,11 @@ Obj/
 UnityGenerated/
 Library/
 
+# ================ #
+# 3rd Party Assets #
+# ================ #
+TK2DROOT/
+
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
 # ===================================== #

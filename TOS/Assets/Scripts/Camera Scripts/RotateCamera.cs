@@ -5,7 +5,7 @@ public class RotateCamera : MonoBehaviour {
 
     private bool _mouseIsClicked;
 
-    public GameObject cameraTarget;
+   // public GameObject cameraTarget;
 
     public float cameraRotateSpeed = 2f;
 
@@ -21,6 +21,7 @@ public class RotateCamera : MonoBehaviour {
                 _mouseIsClicked = false;
 
             if (_mouseIsClicked)
-                transform.RotateAround(cameraTarget.transform.position, cameraTarget.transform.up, Input.GetAxis("Mouse X") * cameraRotateSpeed);     
+                //transform.RotateAround(cameraTarget.transform.position, cameraTarget.transform.up, Input.GetAxis("Mouse X") * cameraRotateSpeed);     
+                transform.Rotate(0, Input.GetAxis("Mouse X") * cameraRotateSpeed, 0);
 	}
 }

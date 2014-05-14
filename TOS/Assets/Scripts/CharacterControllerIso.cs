@@ -2,7 +2,8 @@
 using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(CapsuleCollider))]
+[RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(SpriteManager))]
 
 public class CharacterControllerIso : MonoBehaviour {
 
@@ -11,7 +12,9 @@ public class CharacterControllerIso : MonoBehaviour {
     public float speed = 5.0f;
     public float roationSpeed = 10.0f;
 
+    [SerializeField]
     private bool _canMove;
+    public bool CanMove { get { return _canMove; } set { _canMove = value; } }
     private bool dashed;
     private float dashCoolDown = 2.0f;
 
@@ -31,6 +34,9 @@ public class CharacterControllerIso : MonoBehaviour {
 
     void FixedUpdate()
     {
+        if (_canMove)
+        {
+
        var moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
        moveDirection = Camera.main.transform.TransformDirection(moveDirection);
        moveDirection.y = 0;
@@ -43,19 +49,20 @@ public class CharacterControllerIso : MonoBehaviour {
        }
        else
            _spriteManager.IsWalking = false;
-       Debug.Log(moveDirection);
-        //try to move where mouse is facing?
-       if(_canMove)
-            rigidbody.MovePosition(rigidbody.position + moveDirection.normalized * speed * Time.deltaTime);
 
-        /*
-       if (!dashed && Input.GetKey(KeyCode.Space))
-       {
-           dashed = true;
-           rigidbody.AddForce(transform.forward * 50f, ForceMode.Impulse);
-           StartCoroutine(CoolDown(() => dashed = false, dashCoolDown));
+        //try to move where mouse is facing?
+      
+           rigidbody.MovePosition(rigidbody.position + moveDirection.normalized * speed * Time.deltaTime);
+
+
+           if (!dashed && Input.GetKey(KeyCode.Space))
+           {
+               dashed = true;
+               rigidbody.AddForce(transform.forward * 30f, ForceMode.Impulse);
+               StartCoroutine(CoolDown(() => dashed = false, dashCoolDown));
+           }
        }
-        */
+        
       }
 
     public IEnumerator CoolDown(System.Action operation, float coolDown)

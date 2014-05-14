@@ -14,7 +14,7 @@ public class SpriteFaceCamera : MonoBehaviour {
         var moveDirection = Camera.main.transform.forward;
         moveDirection.y = 0;
 
-        transform.forward = -moveDirection;
+        transform.forward = moveDirection;
 	
 	}
 }
