@@ -5,7 +5,7 @@ using System.Collections;
 public class PlayerAttackIso : MonoBehaviour {
 
     private float attackRadius = 5f;
-    private float attackKnockback = 10f;
+    private float attackKnockback = 7f;
 
     private float attackDistance = 5.0f;
     private float attackDelay = 0.5f;
@@ -87,6 +87,16 @@ public class PlayerAttackIso : MonoBehaviour {
                 {
                     //Target is within the cone.
                     Debug.Log("Attack hit!");
+
+                    // screen shake
+
+                    //play sound
+
+                    //freeze frame
+
+                    //deal damage
+
+                    //knockback
                     hit.rigidbody.AddForce(transform.forward * attackKnockback, ForceMode.Impulse);
                 }
             }
