@@ -53,36 +53,36 @@ public class AudioManager : MonoBehaviour {
 	
 	}
 
-    public void PlaySound(string sound)
+    public void PlaySound(string sound, Vector3 position)
     {
         if (soundDictionary.ContainsKey(sound))
         {
             var soundFX = soundDictionary[sound];
-            audio.PlayOneShot(soundFX);
+            AudioSource.PlayClipAtPoint(soundFX, position);
         }
         else
             Debug.Log("Audio Clip not found.");
     }
 
-    public void PlaySoundWithVolumeScale(string sound, float volumeScale)
+    public void PlaySoundWithVolumeScale(string sound,Vector3 position, float volumeScale)
     {
         if (soundDictionary.ContainsKey(sound))
         {
             var soundFX = soundDictionary[sound];
-            audio.PlayOneShot(soundFX, volumeScale);
+            AudioSource.PlayClipAtPoint(soundFX, position, volumeScale);
         }
         else
             Debug.Log("Audio Clip not found.");
     }
 
-    public void PlaySoundWithRandomScale(string sound)
+    public void PlaySoundWithRandomScale(string sound, Vector3 position)
     {
-        float scale = Random.Range(0.5f, 1f);
+        float volumeScale = Random.Range(0.5f, 1f);
 
         if (soundDictionary.ContainsKey(sound))
         {
             var soundFX = soundDictionary[sound];
-            audio.PlayOneShot(soundFX, scale);
+            AudioSource.PlayClipAtPoint(soundFX, position, volumeScale);
         }
         else
             Debug.Log("Audio Clip not found.");

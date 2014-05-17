@@ -135,6 +135,6 @@ public class PlayerAttackIso : MonoBehaviour {
 
     void PlaySound(string sound)
     {
-        _audioManager.PlaySoundWithRandomScale(sound);
+        _audioManager.PlaySoundWithRandomScale(sound, transform.position);
     }
 }
