@@ -11,9 +11,15 @@ public class PlayerAttackIso : MonoBehaviour {
     private float attackDelay = 0.5f;
     private float attackAngle = 30f;
 
+    private float attackMagnitude = 0.2f;
+    private float attackShakeDuration = 0.3f;
+    private float attackShakeSpeed = 5.0f;
+
+
     private SpriteManager _spriteManager;
     //private CharacterControllerIso _characterController;
     private tk2dSpriteAnimator _animator;
+    private CameraShake _cameraShake;
 
     private Vector3 newPos;
 
@@ -24,6 +30,7 @@ public class PlayerAttackIso : MonoBehaviour {
        // _characterController = this.GetComponent<CharacterControllerIso>();
         _animator = this.GetComponentInChildren<tk2dSpriteAnimator>();
         _animator.AnimationEventTriggered += AnimationEventHandler;
+        _cameraShake = GameObject.FindGameObjectWithTag("Camera").GetComponent<CameraShake>();
 	
 	}
 	
@@ -88,7 +95,7 @@ public class PlayerAttackIso : MonoBehaviour {
                     //Target is within the cone.
                     Debug.Log("Attack hit!");
 
-                    // screen shake
+                    ScreenShake();
 
                     //play sound
 
@@ -108,4 +115,9 @@ public class PlayerAttackIso : MonoBehaviour {
     //Use the same vars you use to draw your Overlap SPhere to draw your Wire Sphere.
         Gizmos.DrawWireSphere(transform.position, attackRadius);
 }
+
+    void ScreenShake()
+    {
+        _cameraShake.PlayShake(attackShakeDuration, attackShakeSpeed, attackMagnitude);
+    }
 }
