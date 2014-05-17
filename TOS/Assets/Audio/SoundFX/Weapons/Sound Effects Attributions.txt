@@ -1,0 +1,6 @@
+hit 1 - 35213__abyssmal__slashkut
+hit 2 - 77611__joelaudio__sfx-attack-sword-001
+
+miss 1 - swish-7
+miss 2 - swish-8
+miss 3 - swish-9

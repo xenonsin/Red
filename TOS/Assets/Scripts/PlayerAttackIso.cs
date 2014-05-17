@@ -9,7 +9,7 @@ public class PlayerAttackIso : MonoBehaviour {
 
     private float attackDistance = 5.0f;
     private float attackDelay = 0.5f;
-    private float attackAngle = 30f;
+    private float attackAngle = 40f;
 
     private float attackMagnitude = 0.2f;
     private float attackShakeDuration = 0.3f;
@@ -20,6 +20,7 @@ public class PlayerAttackIso : MonoBehaviour {
     //private CharacterControllerIso _characterController;
     private tk2dSpriteAnimator _animator;
     private CameraShake _cameraShake;
+    private AudioManager _audioManager;
 
     private Vector3 newPos;
 
@@ -31,6 +32,7 @@ public class PlayerAttackIso : MonoBehaviour {
         _animator = this.GetComponentInChildren<tk2dSpriteAnimator>();
         _animator.AnimationEventTriggered += AnimationEventHandler;
         _cameraShake = GameObject.FindGameObjectWithTag("Camera").GetComponent<CameraShake>();
+        _audioManager = GameObject.FindGameObjectWithTag("Audio Manager").GetComponent<AudioManager>();
 	
 	}
 	
@@ -97,15 +99,20 @@ public class PlayerAttackIso : MonoBehaviour {
 
                     ScreenShake();
 
-                    //play sound
+                    PlaySound("attack1"); // only 1 for now
 
                     //freeze frame
 
                     //deal damage
 
-                    //knockback
-                    hit.rigidbody.AddForce(transform.forward * attackKnockback, ForceMode.Impulse);
+
+                    hit.rigidbody.AddForce(transform.forward * attackKnockback, ForceMode.Impulse); //knockback
                 }
+            }
+            else
+            {
+                //some how this plays even though it hits. Not sure why
+                PlaySound("miss3"); // only 1 for now
             }
         }
     }
@@ -114,10 +121,20 @@ public class PlayerAttackIso : MonoBehaviour {
         Gizmos.color = Color.red;
     //Use the same vars you use to draw your Overlap SPhere to draw your Wire Sphere.
         Gizmos.DrawWireSphere(transform.position, attackRadius);
+
+
+        Debug.DrawRay(transform.position,  transform.forward * attackRadius, Color.red);
+        Debug.DrawRay(transform.position, (Quaternion.Euler(0, attackAngle, 0) * transform.forward).normalized * attackRadius, Color.red);
+        Debug.DrawRay(transform.position, (Quaternion.Euler(0, -attackAngle, 0) * transform.forward).normalized * attackRadius, Color.red);
 }
 
     void ScreenShake()
     {
         _cameraShake.PlayShake(attackShakeDuration, attackShakeSpeed, attackMagnitude);
+    }
+
+    void PlaySound(string sound)
+    {
+        _audioManager.PlaySoundWithRandomScale(sound);
     }
 }
