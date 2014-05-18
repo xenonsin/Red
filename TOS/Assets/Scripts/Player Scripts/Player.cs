@@ -4,12 +4,15 @@ using System.Collections;
 public class Player : Entity  {
 
     private SpriteManager _spriteManager;
+    private FloatingNumberManager _floatingNumberManager;
 	// Use this for initialization
 	public override void Awake() {
         base.Awake();
         _spriteManager = this.GetComponent<SpriteManager>();
+        _floatingNumberManager = GameObject.FindGameObjectWithTag("Floating Numbers").GetComponent<FloatingNumberManager>();
         Name = "Red";
         Health = 1000f;
+        Height = 3f;
 	
 	}
 	
@@ -27,6 +30,8 @@ public class Player : Entity  {
        
 
         StartCoroutine( _spriteManager.FlashRed(0.2f));
+
+        _floatingNumberManager.DisplayDamage(damage, gameObject, Height);
 
         //instantiate floating numbers
         //flash red

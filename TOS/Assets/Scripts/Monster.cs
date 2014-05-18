@@ -4,6 +4,7 @@ using System.Collections;
 public class Monster : Entity{
     public string monsterName;
     public float health;
+    public float height;
 
     private SpriteManager _spriteManager;
     // Use this for initialization
@@ -13,6 +14,7 @@ public class Monster : Entity{
         _spriteManager = this.GetComponent<SpriteManager>();
         Name = monsterName;
         Health = health;
+        Height = height;
 
     }
 

@@ -5,6 +5,7 @@ public abstract class Entity: MonoBehaviour {
 
     public string Name { get; set; }
     public float Health { get; set; }
+    public float Height { get; set; }
 
     public virtual float RageMeter { get; set; }
 
