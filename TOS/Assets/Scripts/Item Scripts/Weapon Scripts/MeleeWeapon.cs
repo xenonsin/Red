@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class MeleeWeapon: BaseWeapon {
+public class MeleeWeapon: BaseWeapon {
 
-    public float Radius { get; set; }
     public float Delay { get; set; }
     public float Angle { get; set; }
     public float Magnitude { get; set; }

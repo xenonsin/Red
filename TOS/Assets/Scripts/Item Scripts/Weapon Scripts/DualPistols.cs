@@ -5,10 +5,11 @@ public class DualPistols : RangeWeapon {
 
 	public DualPistols()
     {
-        Name = "ol' Reliable";
-        Damage = 300f;
+        Name = "Tits n' Pancakes";
+        MinDamage = 40f;
+        MaxDamage = 50f;
         AudioClipName = "attack1"; // get bullet sounds
         Knockback = 7f;
-        Distance = 5.0f;
+        Range = 20.0f;
     }
 }

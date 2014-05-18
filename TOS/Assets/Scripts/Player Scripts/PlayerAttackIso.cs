@@ -4,17 +4,16 @@ using System.Collections;
 [RequireComponent(typeof(SpriteManager))]
 public class PlayerAttackIso : MonoBehaviour {
 
+    /*
     private float attackRadius = 5f;
     private float attackKnockback = 7f;
-
-    private float attackDistance = 5.0f;
     private float attackDelay = 0.5f;
     private float attackAngle = 40f;
 
     private float attackMagnitude = 0.2f;
     private float attackShakeDuration = 0.3f;
     private float attackShakeSpeed = 5.0f;
-
+    */
 
     private SpriteManager _spriteManager;
     //private CharacterControllerIso _characterController;
@@ -24,7 +23,8 @@ public class PlayerAttackIso : MonoBehaviour {
 
     private Vector3 newPos;
 
-    private Scythe MeleeWeapon = new Scythe();
+    private MeleeWeapon _meleeWeapon = new Scythe();
+    //private RangeWeapon _rangeWeapon = new DualPistols();
 
 	// Use this for initialization
 	void Start () {
@@ -35,7 +35,7 @@ public class PlayerAttackIso : MonoBehaviour {
         _animator.AnimationEventTriggered += AnimationEventHandler;
         _cameraShake = GameObject.FindGameObjectWithTag("Camera").GetComponent<CameraShake>();
         _audioManager = GameObject.FindGameObjectWithTag("Audio Manager").GetComponent<AudioManager>();
-	
+
 	}
 	
 	// Update is called once per frame
@@ -85,13 +85,13 @@ public class PlayerAttackIso : MonoBehaviour {
     void CheckRange()
     {     
         
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRadius);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, _meleeWeapon.Range);
 
         foreach (var hit in hitColliders)
         {
             if (hit && hit.tag == "Enemy")
             {
-               var cone = Mathf.Cos(attackAngle * Mathf.Deg2Rad);
+               var cone = Mathf.Cos(_meleeWeapon.Angle * Mathf.Deg2Rad);
                 Vector3 dir = (hit.transform.position - transform.position).normalized;
 
                 if(Vector3.Dot(transform.forward, dir) > cone)
@@ -101,7 +101,7 @@ public class PlayerAttackIso : MonoBehaviour {
 
                     ScreenShake();
 
-                    PlaySound("attack1"); // only 1 for now
+                    PlaySound(_meleeWeapon.AudioClipName); // only 1 for now
 
                     FreezeFrame();
 
@@ -122,17 +122,17 @@ public class PlayerAttackIso : MonoBehaviour {
     void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
     //Use the same vars you use to draw your Overlap SPhere to draw your Wire Sphere.
-        Gizmos.DrawWireSphere(transform.position, attackRadius);
+        Gizmos.DrawWireSphere(transform.position, _meleeWeapon.Range);
 
 
-        Debug.DrawRay(transform.position,  transform.forward * attackRadius, Color.red);
-        Debug.DrawRay(transform.position, (Quaternion.Euler(0, attackAngle, 0) * transform.forward).normalized * attackRadius, Color.red);
-        Debug.DrawRay(transform.position, (Quaternion.Euler(0, -attackAngle, 0) * transform.forward).normalized * attackRadius, Color.red);
+        Debug.DrawRay(transform.position,  transform.forward * _meleeWeapon.Range, Color.red);
+        Debug.DrawRay(transform.position, (Quaternion.Euler(0, _meleeWeapon.Angle, 0) * transform.forward).normalized * _meleeWeapon.Range, Color.red);
+        Debug.DrawRay(transform.position, (Quaternion.Euler(0, _meleeWeapon.Angle, 0) * transform.forward).normalized * _meleeWeapon.Range, Color.red);
 }
 
     void ScreenShake()
     {
-        _cameraShake.PlayShake(attackShakeDuration, attackShakeSpeed, attackMagnitude);
+        _cameraShake.PlayShake(_meleeWeapon.ShakeDuration, _meleeWeapon.ShakeSpeed, _meleeWeapon.Magnitude);
     }
 
     void PlaySound(string sound)
@@ -142,17 +142,18 @@ public class PlayerAttackIso : MonoBehaviour {
 
     void DealDamage(Collider hit)
     {
-       var objectThatWasHit =  (IEntity)hit.transform.GetComponent(typeof(IEntity));
-       objectThatWasHit.Hit(15);
+       var objectThatWasHit =  hit.transform.GetComponent<Entity>();
+       float damage = Random.Range(_meleeWeapon.MinDamage, _meleeWeapon.MaxDamage);
+       objectThatWasHit.Hit(damage);
     }
 
     void FreezeFrame()
     {
-        StartCoroutine(_spriteManager.FreezeFrame(0.2f));
+        StartCoroutine(_spriteManager.FreezeFrame(_meleeWeapon.Magnitude));
     }
 
     void KnockBack(Collider hit)
     {
-        hit.rigidbody.AddForce(transform.forward * attackKnockback, ForceMode.Impulse); //knockback
+        hit.rigidbody.AddForce(transform.forward * _meleeWeapon.Knockback, ForceMode.Impulse); //knockback
     }
 }

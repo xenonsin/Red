@@ -3,14 +3,13 @@ using System.Collections;
 
 public class CameraZoom : MonoBehaviour {
 
-    private Camera camera;
 
     public float minSize = 5.0f;
     public float maxSize = 10.0f;
 
 	// Use this for initialization
 	void Start () {
-        camera = this.GetComponent<Camera>();
+
 	
 	}
 	
