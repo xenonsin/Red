@@ -73,7 +73,7 @@ public class DamageEvents : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            this.Recycle();
         }
 
        
