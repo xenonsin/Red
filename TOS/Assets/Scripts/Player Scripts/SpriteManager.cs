@@ -32,7 +32,7 @@ public class SpriteManager : MonoBehaviour
 
     private int _currentDirection;
     private int _currentState;
-    private string _currentAnimation;
+   // private string _currentAnimation;
 
     public bool IsWalking { get; set; }
     public bool IsAttacking { get; set; }
@@ -78,7 +78,7 @@ public class SpriteManager : MonoBehaviour
 
 
            
-        _currentAnimation = directions[_currentDirection] + " - " + states[_currentState];
+       // _currentAnimation = directions[_currentDirection] + " - " + states[_currentState];
 
         
 

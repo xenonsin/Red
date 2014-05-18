@@ -24,6 +24,8 @@ public class PlayerAttackIso : MonoBehaviour {
 
     private Vector3 newPos;
 
+    private Scythe MeleeWeapon = new Scythe();
+
 	// Use this for initialization
 	void Start () {
 
