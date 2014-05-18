@@ -101,12 +101,12 @@ public class PlayerAttackIso : MonoBehaviour {
 
                     PlaySound("attack1"); // only 1 for now
 
-                    //freeze frame
+                    FreezeFrame();
 
-                    //deal damage
+                    DealDamage(hit);
 
-
-                    hit.rigidbody.AddForce(transform.forward * attackKnockback, ForceMode.Impulse); //knockback
+                    KnockBack(hit);
+                    
                 }
             }
             else
@@ -136,5 +136,21 @@ public class PlayerAttackIso : MonoBehaviour {
     void PlaySound(string sound)
     {
         _audioManager.PlaySoundWithRandomScale(sound, transform.position);
+    }
+
+    void DealDamage(Collider hit)
+    {
+       var objectThatWasHit =  (IEntity)hit.transform.GetComponent(typeof(IEntity));
+       objectThatWasHit.Hit(15);
+    }
+
+    void FreezeFrame()
+    {
+        StartCoroutine(_spriteManager.FreezeFrame(0.2f));
+    }
+
+    void KnockBack(Collider hit)
+    {
+        hit.rigidbody.AddForce(transform.forward * attackKnockback, ForceMode.Impulse); //knockback
     }
 }

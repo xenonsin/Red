@@ -22,6 +22,7 @@ public class SpriteManager : MonoBehaviour
         "Idle",
         "Walk",
         "Attack",
+        "Hit",
     };
 
     private tk2dSpriteAnimator _animator;
@@ -121,11 +122,25 @@ public class SpriteManager : MonoBehaviour
     {
         while (_animator.Playing)
         {
-            yield return null; // wait for next flame. will check until animator has stopped playing.
+            yield return null; // wait for next frame. will check until animator has stopped playing.
         }
         //do stuff after animation is done.
         IsAttacking = false;
         _characterController.CanMove = true;
         
+    }
+
+    public IEnumerator FreezeFrame(float hitPower)
+    {
+        _animator.Pause();
+        yield return new WaitForSeconds(hitPower);
+        _animator.Resume();
+    }
+
+    public IEnumerator FlashRed(float seconds)
+    {
+        _sprite.color = Color.red;
+        yield return new WaitForSeconds(seconds);
+        _sprite.color = Color.white;
     }
 }

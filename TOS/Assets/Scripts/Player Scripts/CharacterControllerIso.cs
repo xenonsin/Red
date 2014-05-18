@@ -16,8 +16,6 @@ public class CharacterControllerIso : MonoBehaviour {
     private bool _canMove;
     public bool CanMove { get { return _canMove; } set { _canMove = value; } }
 
-    public bool isStandingStill { get; set; }
-
 
     private bool dashed;
     private float dashCoolDown = 2.0f;
