@@ -6,12 +6,10 @@ public class Monster : Entity{
     public float health;
     public float height;
 
-    private SpriteManager _spriteManager;
     // Use this for initialization
     public override void Awake()
     {
         base.Awake();
-        _spriteManager = this.GetComponent<SpriteManager>();
         Name = monsterName;
         Health = health;
         Height = height;
@@ -30,9 +28,6 @@ public class Monster : Entity{
     {
         base.Hit(damage);
         // _animator.SetTrigger("Hit");
-
-
-        StartCoroutine(_spriteManager.FlashRed(0.2f));
 
         //instantiate floating numbers
         //flash red

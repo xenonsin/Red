@@ -3,16 +3,19 @@ using System.Collections;
 
 public class Player : Entity  {
 
-    private SpriteManager _spriteManager;
-    private FloatingNumberManager _floatingNumberManager;
+    //private SpriteManager _spriteManager;
+   // private FloatingNumberManager _floatingNumberManager;
+    //private BloodManager _bloodManager;
+
 	// Use this for initialization
 	public override void Awake() {
         base.Awake();
-        _spriteManager = this.GetComponent<SpriteManager>();
-        _floatingNumberManager = GameObject.FindGameObjectWithTag("Floating Numbers").GetComponent<FloatingNumberManager>();
+       // _spriteManager = this.GetComponent<SpriteManager>();
+       // _floatingNumberManager = GameObject.FindGameObjectWithTag("Floating Numbers").GetComponent<FloatingNumberManager>();
+       // _bloodManager = GameObject.FindGameObjectWithTag("Blood").GetComponent<BloodManager>();
         Name = "Red";
         Health = 1000f;
-        Height = 3f;
+        Height = 2f;
 	
 	}
 	
@@ -29,10 +32,11 @@ public class Player : Entity  {
        // _animator.SetTrigger("Hit");
        
 
-        StartCoroutine( _spriteManager.FlashRed(0.2f));
+        //StartCoroutine( _spriteManager.FlashRed(0.2f));
 
-        _floatingNumberManager.DisplayDamage(damage, gameObject, Height);
+        //_floatingNumberManager.DisplayDamage(damage, gameObject, Height + 1f);
 
+       // _bloodManager.EmitBlood(transform.position, Height);
         //instantiate floating numbers
         //flash red
     }

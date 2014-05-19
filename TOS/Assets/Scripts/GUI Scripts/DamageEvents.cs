@@ -44,7 +44,7 @@ public class DamageEvents : MonoBehaviour
 
         if (myControl == null || attach == null)
         {
-            Debug.LogWarning("Configuration incomplete: " + this.name);
+           // Debug.LogWarning("Configuration incomplete: " + this.name);
             this.enabled = false;
             return;
         }

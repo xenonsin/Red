@@ -55,4 +55,25 @@ public class FloatingNumberManager : MonoBehaviour {
         follow.offset = new Vector3(0, offset, 0);
         follow.enabled = true;
     }
+
+    public void DisplayNumber(float damage, GameObject goj, float offset, Color color)
+    {
+        //dfLabel itemPickupLabel = numberLabel.Spawn().GetComponent<dfLabel>();
+
+        dfLabel itemPickupLabel = numberLabel.Spawn();
+
+        uiRoot.AddControl(itemPickupLabel);
+
+        var temp = (int)damage;
+
+        itemPickupLabel.Color = color;
+        itemPickupLabel.Text = temp.ToString();
+        itemPickupLabel.Opacity = 1;
+
+        var follow = itemPickupLabel.GetComponent<DamageEvents>();
+
+        follow.attach = goj;
+        follow.offset = new Vector3(0, offset, 0);
+        follow.enabled = true;
+    }
 }
