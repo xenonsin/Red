@@ -9,7 +9,6 @@ public class Scythe : MeleeWeapon {
         MinDamage = 200f;
         MaxDamage = 300f;
         AudioClipName = "attack1";
-        Range = 5f;
         Knockback = 7f;
         Range = 5.0f;
         Delay = 0.5f;

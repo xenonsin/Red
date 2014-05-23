@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(CharacterControllerIso))]
+//[RequireComponent(typeof(CharacterControllerIso))]
 public class SpriteManager : MonoBehaviour
 {
 
@@ -75,7 +75,7 @@ public class SpriteManager : MonoBehaviour
             _animator.Play(states[_currentState] + " - " + directions[_currentDirection]);
 
         
-
+        
 
            
        // _currentAnimation = directions[_currentDirection] + " - " + states[_currentState];
@@ -142,5 +142,7 @@ public class SpriteManager : MonoBehaviour
         _sprite.color = Color.red;
         yield return new WaitForSeconds(seconds);
         _sprite.color = Color.white;
+
+        //need to get wolf black again.
     }
 }

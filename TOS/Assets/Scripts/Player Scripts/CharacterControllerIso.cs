@@ -18,7 +18,7 @@ public class CharacterControllerIso : MonoBehaviour {
 
 
     private bool dashed;
-    private float dashCoolDown = 2.0f;
+    private float dashCoolDown = 1.0f;
 
     private SpriteManager _spriteManager;
 
