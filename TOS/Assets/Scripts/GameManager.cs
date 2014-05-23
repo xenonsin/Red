@@ -23,7 +23,9 @@ public class GameManager : MonoBehaviour {
         EARS,
         EYES,
         HANDS,
-        MOUTH
+        MOUTH,
+        WIN,
+        LOSE
     }
 
     public enum Levels
@@ -39,12 +41,18 @@ public class GameManager : MonoBehaviour {
     private bool hasSpawned = false;
     private WolfSpawnManager _wolfSpawnManager;
 
-
     private bool dialogVisible = false;
     public dfLabel dialogLabel;
     public float duration = 20f;
 
+    private bool showEndPanel;
+    public dfPanel endPanel;
+    public bool endButtonClicked;
+
     private int _wolfDeathCount = 0;
+    private int _wolfDeathCountEndGame = 0;
+
+    public dfPanel winLosePanel;
 
     public string[] Dialog = new string[]
     {
@@ -58,11 +66,15 @@ public class GameManager : MonoBehaviour {
     void OnEnable()
     {
         Monster.Dead += WolfDeathCount;
+        Grandma.Dead += Lose;
+        Player.Dead += Lose;
     }
 
     void OnDisable()
     {
         Monster.Dead -= WolfDeathCount;
+        Grandma.Dead -= Lose;
+        Player.Dead -= Lose;
     }
 
 
@@ -74,7 +86,7 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	IEnumerator Start () {
-
+        endButtonClicked = true;
         _currentStage = Stages.EARS;
         currentLevel = Levels.INTRO;
 
@@ -94,6 +106,12 @@ public class GameManager : MonoBehaviour {
                 case Stages.MOUTH:
                     Mouth();
                     break;
+                case Stages.WIN:
+                    Win();
+                    break;
+                case Stages.LOSE:
+                    Lose();
+                    break;
             }
             yield return 0;
         }
@@ -107,9 +125,16 @@ public class GameManager : MonoBehaviour {
 	}
 
     #region Helper
+    public void EndPanelClicked(dfControl ignore, dfMouseEventArgs args)
+    {
+        endButtonClicked = true;
+    }
+
     public void WolfDeathCount()
     {
         _wolfDeathCount++;
+        _wolfDeathCountEndGame++;
+
     }
 
     public void ChangeStageTo(Stages stage)
@@ -142,6 +167,16 @@ public class GameManager : MonoBehaviour {
     #endregion
 
     #region Stages
+    void Win() 
+    {
+        winLosePanel.IsVisible = true;
+    }
+
+    void Lose() 
+    {
+        winLosePanel.IsVisible = true;
+    }
+
     void GenericStage()
     {
         switch (currentLevel)
@@ -182,23 +217,27 @@ public class GameManager : MonoBehaviour {
     #region Levels
     void Intro()
     {
-        if (!dialogVisible)
+        if (endButtonClicked)
         {
-            ShowLabel();
-            HealPlayer();
-            _wolfDeathCount = 0;
-            hasSpawned = false;
-        }
-        else
-        {
-            if (dialogLabel.Opacity > 0)
+            if (!dialogVisible)
             {
-                dialogLabel.Opacity -= Time.deltaTime / duration;
+                ShowLabel();
+                HealPlayer();
+                _wolfDeathCount = 0;
+                hasSpawned = false;
+                showEndPanel = true;
             }
             else
             {
-                dialogVisible = false;
-                ChangeLevelTo(Levels.MAIN);
+                if (dialogLabel.Opacity > 0)
+                {
+                    dialogLabel.Opacity -= Time.deltaTime / duration;
+                }
+                else
+                {
+                    dialogVisible = false;
+                    ChangeLevelTo(Levels.MAIN);
+                }
             }
         }
     }
@@ -217,21 +256,12 @@ public class GameManager : MonoBehaviour {
 
     void End()
     {
-        switch (_currentStage)
+        if (showEndPanel)
         {
-            case Stages.EARS:
-                ChangeStageTo(Stages.EYES);
-                break;
-            case Stages.EYES:
-                ChangeStageTo(Stages.HANDS);
-                break;
-            case Stages.HANDS:
-                ChangeStageTo(Stages.MOUTH);
-                break;
-            case Stages.MOUTH:
-                Debug.Log("You win!");
-                break;
+            showEndPanel = false;
+            StartCoroutine(ShowEndPanel());
         }
+
     }
     #endregion
 
@@ -264,4 +294,35 @@ public class GameManager : MonoBehaviour {
     }
     #endregion
 
+    #region End
+    IEnumerator ShowEndPanel()
+    {
+        yield return new WaitForSeconds(3f);
+
+
+        SwitchToNextStage();
+
+    }
+
+    void SwitchToNextStage()
+    {
+        endButtonClicked = false;
+        endPanel.IsVisible = true;
+        switch (_currentStage)
+        {
+            case Stages.EARS:
+                ChangeStageTo(Stages.EYES);
+                break;
+            case Stages.EYES:
+                ChangeStageTo(Stages.HANDS);
+                break;
+            case Stages.HANDS:
+                ChangeStageTo(Stages.MOUTH);
+                break;
+            case Stages.MOUTH:
+                ChangeStageTo(Stages.WIN);
+                break;
+        }
+    }
+    #endregion
 }

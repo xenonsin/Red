@@ -5,7 +5,9 @@ public class WolfController : MonoBehaviour {
 
 
     private float _distanceFromPlayer;
-    private GameObject _player;
+   // private GameObject _player;
+    //private GameObject _grandma;
+
     private WolfFollow _wolfAI; //wolf follow
     private WolfSpriteManager _spriteManager;
     private tk2dSpriteAnimator _animator;
@@ -21,7 +23,8 @@ public class WolfController : MonoBehaviour {
     public bool CanMove { get { return _canMove; } set { _canMove = value; } }
 	// Use this for initialization
 	void Start () {
-        _player = GameObject.FindGameObjectWithTag("Player");
+       // _player = GameObject.FindGameObjectWithTag("Player");
+        //_grandma = GameObject.FindGameObjectWithTag("Grandma");
         _wolfAI = this.GetComponent<WolfFollow>();
         _spriteManager = this.GetComponent<WolfSpriteManager>();
         _animator = this.GetComponentInChildren<tk2dSpriteAnimator>();
@@ -50,9 +53,9 @@ public class WolfController : MonoBehaviour {
 
     void GetDistance()
     {
-        var distance = Vector3.Distance(transform.position, _player.transform.position);
+        var playerDistance = Vector3.Distance(transform.position, _wolfAI.target.position);
 
-        if (distance > minRange)
+        if (playerDistance > minRange)
         {
             _spriteManager.IsWalking = true;
             _wolfAI.canFollow = true;
@@ -78,7 +81,7 @@ public class WolfController : MonoBehaviour {
 
         foreach (var hit in hitColliders)
         {
-            if (hit && hit.tag == "Player")
+            if (hit && hit.tag == "Player" || hit.tag == "Grandma")
             {
                 var cone = Mathf.Cos(_meleeWeapon.Angle * Mathf.Deg2Rad);
                 Vector3 dir = (hit.transform.position - transform.position).normalized;

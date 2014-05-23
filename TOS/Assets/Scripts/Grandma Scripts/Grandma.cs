@@ -1,31 +1,34 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : Entity  {
+public class Grandma : Entity
+{
 
-    public delegate void PlayerAction();
-    public static event PlayerAction HpChange;
+    public delegate void GrandmaAction();
+    public static event GrandmaAction HpChange;
 
-    public delegate void PlayerDeath();
-    public static event PlayerDeath Dead;
+    public delegate void GrandmaDeath();
+    public static event GrandmaDeath Dead;
 
-    private SpriteManager _spriteManager;
+    private GrandmaSpriteManager _spriteManager;
 
-	// Use this for initialization
-	public override void Awake() {
-        _spriteManager = this.GetComponent<SpriteManager>();
-        Name = "Red";
-        MaxHealth = 1000f;
+    // Use this for initialization
+    public override void Awake()
+    {
+        _spriteManager = this.GetComponent<GrandmaSpriteManager>();
+        Name = "Grandma";
+        MaxHealth = 2000f;
         Height = 2f;
-	
+
         base.Awake();
 
-	}
-	
-	// Update is called once per frame
-	 public override void Update () {
+    }
+
+    // Update is called once per frame
+    public override void Update()
+    {
         base.Update();
-	}
+    }
 
 
     public override void Hit(float damage)

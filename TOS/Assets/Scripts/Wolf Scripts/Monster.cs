@@ -53,6 +53,7 @@ public class Monster : Entity{
     {
         if (Dead != null)
             Dead();
-        this.Recycle();
+        base.Death();
+
     }
 }

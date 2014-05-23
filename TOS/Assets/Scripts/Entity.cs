@@ -32,7 +32,7 @@ public abstract class Entity: MonoBehaviour {
         Debug.Log(Name + " Health: " + Health.ToString());
     }
 
-    public virtual void FullHeal(float heal)
+    public virtual void FullHeal()
     {
         Health = MaxHealth;
         Debug.Log(Name + " Health: " + Health.ToString());
@@ -40,7 +40,7 @@ public abstract class Entity: MonoBehaviour {
 
     public virtual void Death()
     {
-
+        this.Recycle();
     }
     public virtual void IncreaseMaxHP(float newAmount)
     {
