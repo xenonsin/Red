@@ -14,7 +14,7 @@ public class Scythe : MeleeWeapon {
         Delay = 0.5f;
         Angle = 40f;
         Magnitude = 0.2f;
-        ShakeDuration = 0.3f;
+        ShakeDuration = 0.4f;
         ShakeSpeed = 5.0f;
     }
 

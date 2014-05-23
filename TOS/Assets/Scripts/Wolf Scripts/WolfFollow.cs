@@ -16,8 +16,12 @@ public class WolfFollow : AIPath
      * \see OnTargetReached */
     public GameObject endOfPathEffect;
 
+    private Transform _player;
+
     public new void Start()
     {
+        _player = GameObject.FindGameObjectWithTag("Player").transform;
+        target = _player;
         //Call Start in base script (AIPath)
         base.Start();
     }

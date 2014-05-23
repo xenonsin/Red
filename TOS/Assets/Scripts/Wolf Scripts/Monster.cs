@@ -2,6 +2,10 @@
 using System.Collections;
 
 public class Monster : Entity{
+
+    public delegate void WolfDealth();
+    public static event WolfDealth Dead;
+
     public string monsterName;
     public float health;
     public float height;
@@ -47,6 +51,8 @@ public class Monster : Entity{
 
     public override void Death()
     {
-        //play death animation
+        if (Dead != null)
+            Dead();
+        this.Recycle();
     }
 }

@@ -55,11 +55,12 @@ public abstract class Entity: MonoBehaviour {
         _floatingNumberManager = GameObject.FindGameObjectWithTag("Floating Numbers").GetComponent<FloatingNumberManager>();
         _bloodManager = GameObject.FindGameObjectWithTag("Blood").GetComponent<BloodManager>();
         Health = MaxHealth;
+        IsAlive = true;
     }
 
     public virtual void Update()
     {
-        if (!IsAlive)
+        if (Health <= 0)
             Death();
     }
 }

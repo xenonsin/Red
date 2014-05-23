@@ -36,10 +36,15 @@ public class GameManager : MonoBehaviour {
     private Stages _currentStage;
     public Levels currentLevel;
 
+    private bool hasSpawned = false;
+    private WolfSpawnManager _wolfSpawnManager;
+
 
     private bool dialogVisible = false;
     public dfLabel dialogLabel;
-    public float duration = 10f;
+    public float duration = 20f;
+
+    private int _wolfDeathCount = 0;
 
     public string[] Dialog = new string[]
     {
@@ -48,7 +53,24 @@ public class GameManager : MonoBehaviour {
         "'But, grandmother, what large hands you have!'",
         "'Oh! but, grandmother, what a terrible big mouth you have!'"
     };
-    public int[] WolfSpawn = new int[]{10,20,30,40};
+    public int[] WolfSpawn;
+
+    void OnEnable()
+    {
+        Monster.Dead += WolfDeathCount;
+    }
+
+    void OnDisable()
+    {
+        Monster.Dead -= WolfDeathCount;
+    }
+
+
+    void Awake()
+    {
+        _wolfSpawnManager = GameObject.FindGameObjectWithTag("Wolf Manager").GetComponent<WolfSpawnManager>();
+        WolfSpawn = new int[4] { 10, 20, 30, 40 };
+    }
 
 	// Use this for initialization
 	IEnumerator Start () {
@@ -84,6 +106,12 @@ public class GameManager : MonoBehaviour {
 	
 	}
 
+    #region Helper
+    public void WolfDeathCount()
+    {
+        _wolfDeathCount++;
+    }
+
     public void ChangeStageTo(Stages stage)
     {
         _currentStage = stage;
@@ -99,6 +127,19 @@ public class GameManager : MonoBehaviour {
         if(LevelChanged != null)
         LevelChanged(level);
     }
+
+    public int ToInt(Stages stage)
+    {
+        int value = (int)stage;
+        return value;
+    }
+
+    public int ToInt(Levels stage)
+    {
+        int value = (int)stage;
+        return value;
+    }
+    #endregion
 
     #region Stages
     void GenericStage()
@@ -138,25 +179,15 @@ public class GameManager : MonoBehaviour {
     }
     #endregion
 
-    public int ToInt(Stages stage)
-    {
-        int value = (int)stage;
-        return value;
-    }
-
-    public int ToInt(Levels stage)
-    {
-        int value = (int)stage;
-        return value;
-    }
     #region Levels
     void Intro()
     {
         if (!dialogVisible)
         {
-            dialogLabel.Opacity = 1;
-            dialogLabel.Text = Dialog[ToInt(_currentStage)];
-            dialogVisible = true;
+            ShowLabel();
+            HealPlayer();
+            _wolfDeathCount = 0;
+            hasSpawned = false;
         }
         else
         {
@@ -166,7 +197,6 @@ public class GameManager : MonoBehaviour {
             }
             else
             {
-                Debug.Log("Hi");
                 dialogVisible = false;
                 ChangeLevelTo(Levels.MAIN);
             }
@@ -175,22 +205,63 @@ public class GameManager : MonoBehaviour {
 
     void Mains()
     {
-        Debug.Log("hi!");
+        if (!hasSpawned)
+        {
+            PlayHowl();
+            SpawnWolves();
+        }
+
+        if (_wolfDeathCount >= WolfSpawn[ToInt(_currentStage)])
+            ChangeLevelTo(Levels.END);
     }
 
     void End()
     {
-
+        switch (_currentStage)
+        {
+            case Stages.EARS:
+                ChangeStageTo(Stages.EYES);
+                break;
+            case Stages.EYES:
+                ChangeStageTo(Stages.HANDS);
+                break;
+            case Stages.HANDS:
+                ChangeStageTo(Stages.MOUTH);
+                break;
+            case Stages.MOUTH:
+                Debug.Log("You win!");
+                break;
+        }
     }
     #endregion
 
+    #region Intro
     void ShowLabel()
     {
-
+        dialogLabel.Opacity = 1;
+        dialogLabel.Text = Dialog[ToInt(_currentStage)];
+        dialogVisible = true;
+        
     }
 
     void HealPlayer()
     {
 
     }
+    #endregion
+
+    #region Main
+    void PlayHowl()
+    {
+
+    }
+
+    void SpawnWolves()
+    {
+        _wolfSpawnManager.SpawnWolves(WolfSpawn[ToInt(_currentStage)]);
+        Debug.Log(WolfSpawn[ToInt(_currentStage)]);
+        hasSpawned = true;
+    }
+    #endregion
+
 }

@@ -66,82 +66,83 @@ public class DamageEvents : MonoBehaviour
 
     void Update()
     {
-        if (myControl.Opacity > 0)
-        {
-            offset.y += 2.5f * Time.deltaTime;
-            myControl.Opacity -= Time.deltaTime/duration;
-        }
-        else
-        {
-            this.Recycle();
-        }
-
-       
-
-        var targetPosition = followTransform.position;
-
-        /*
-        var cameraDistance = Vector3.Distance(mainCamera.transform.position, targetPosition);
-        if (cameraDistance > hideDistance)
-        {
-            // Hide the control after a given distance
-            myControl.Opacity = 0f;
-            return;
-        }
-        else if (cameraDistance > fadeDistance)
-        {
-            // Apply fade 
-            myControl.Opacity = 1.0f - (cameraDistance - fadeDistance) / (hideDistance - fadeDistance);
-        }
-        else
-        {
-            // Fully visible
-            myControl.Opacity = 1.0f;
-        }*/
-
-        // Calculate 3D point of attachment
-        var offsetPoint = followTransform.position + offset;
-
-        // Convert world point to resolution-independant screen point
-        var screenPoint = manager.ScreenToGui(mainCamera.WorldToScreenPoint(offsetPoint));
-
-        // Calulate resolution adjustment
-        if (!manager.PixelPerfectMode)
-        {
-            if (constantScale)
-                controlTransform.localScale = Vector3.one * (manager.FixedHeight / mainCamera.pixelHeight);
+        
+            if (myControl.Opacity > 0 && transform !=null)
+            {
+                offset.y += 2.5f * Time.deltaTime;
+                myControl.Opacity -= Time.deltaTime / duration;
+            }
             else
-                controlTransform.localScale = Vector3.one;
+            {
+                this.Recycle();
+            }
+            if (followTransform != null)
+            {
+
+            var targetPosition = followTransform.position;
+
+            /*
+            var cameraDistance = Vector3.Distance(mainCamera.transform.position, targetPosition);
+            if (cameraDistance > hideDistance)
+            {
+                // Hide the control after a given distance
+                myControl.Opacity = 0f;
+                return;
+            }
+            else if (cameraDistance > fadeDistance)
+            {
+                // Apply fade 
+                myControl.Opacity = 1.0f - (cameraDistance - fadeDistance) / (hideDistance - fadeDistance);
+            }
+            else
+            {
+                // Fully visible
+                myControl.Opacity = 1.0f;
+            }*/
+
+            // Calculate 3D point of attachment
+            var offsetPoint = followTransform.position + offset;
+
+            // Convert world point to resolution-independant screen point
+            var screenPoint = manager.ScreenToGui(mainCamera.WorldToScreenPoint(offsetPoint));
+
+            // Calulate resolution adjustment
+            if (!manager.PixelPerfectMode)
+            {
+                if (constantScale)
+                    controlTransform.localScale = Vector3.one * (manager.FixedHeight / mainCamera.pixelHeight);
+                else
+                    controlTransform.localScale = Vector3.one;
+            }
+
+            // Center control over the followed object
+            screenPoint.x -= (myControl.Width / 2) * controlTransform.localScale.x;
+            screenPoint.y -= myControl.Height * controlTransform.localScale.y;
+            /*
+                    // Don't bother trying to update if nothing has changed 
+                    if (Vector2.Distance(screenPoint, lastPosition) <= 0.5f)
+                        return;*/
+
+            // Cache the last screen position used, so that it can be determined whether there 
+            // is a need to update the control's position, which is an expensive operation
+            lastPosition = screenPoint;
+
+            // Do not render the control if the object being followed is not in front of the camera
+            var direction = (attach.transform.position - mainCamera.transform.position).normalized;
+            var inFrontOfCamera = Vector3.Dot(mainCamera.transform.forward, direction) > float.Epsilon;
+            if (!inFrontOfCamera)
+            {
+                myControl.IsVisible = false;
+                return;
+            }
+            else
+            {
+                myControl.IsVisible = true;
+            }
+
+            // Position control on screen
+            myControl.RelativePosition = (Vector3)screenPoint;
         }
-
-        // Center control over the followed object
-        screenPoint.x -= (myControl.Width / 2) * controlTransform.localScale.x;
-        screenPoint.y -= myControl.Height * controlTransform.localScale.y;
-/*
-        // Don't bother trying to update if nothing has changed 
-        if (Vector2.Distance(screenPoint, lastPosition) <= 0.5f)
-            return;*/
-
-        // Cache the last screen position used, so that it can be determined whether there 
-        // is a need to update the control's position, which is an expensive operation
-        lastPosition = screenPoint;
-
-        // Do not render the control if the object being followed is not in front of the camera
-        var direction = (attach.transform.position - mainCamera.transform.position).normalized;
-        var inFrontOfCamera = Vector3.Dot(mainCamera.transform.forward, direction) > float.Epsilon;
-        if (!inFrontOfCamera)
-        {
-            myControl.IsVisible = false;
-            return;
-        }
-        else
-        {
-            myControl.IsVisible = true;
-        }
-
-        // Position control on screen
-        myControl.RelativePosition = (Vector3)screenPoint;
-
     }
 
 }
