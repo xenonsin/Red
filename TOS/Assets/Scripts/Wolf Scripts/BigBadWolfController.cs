@@ -12,7 +12,7 @@ public class BigBadWolfController : MonoBehaviour {
     private tk2dSpriteAnimator _animator;
     private CameraShake _cameraShake;
     private AudioManager _audioManager;
-    private MeleeWeapon _meleeWeapon = new Claws(20f,40f,10f,70f,0.3f);
+    private MeleeWeapon _meleeWeapon = new Claws(50f,100f,10f,70f,0.3f);
 
     public float minRange = 4f;
     public float attackDelay = 1f;

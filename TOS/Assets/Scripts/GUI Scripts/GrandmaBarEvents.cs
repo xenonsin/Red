@@ -5,7 +5,7 @@ public class GrandmaBarEvents : MonoBehaviour {
 
     private dfProgressBar _progressBar;
     //private Grandma _player;
-    private dfLabel _hpLabel;
+   public dfLabel _hpLabel;
     public dfLabel name;
    // private BigBadWolf _bbWolf;
 
@@ -32,7 +32,7 @@ public class GrandmaBarEvents : MonoBehaviour {
         // Obtain a reference to the dfProgressBar instance attached to this object
         this._progressBar = GetComponent<dfProgressBar>();
         hpTarget = GameObject.FindGameObjectWithTag("Grandma").GetComponent<Grandma>();
-        _hpLabel = GetComponentInChildren<dfLabel>();
+       // _hpLabel = GetComponentInChildren<dfLabel>();
 
         this._progressBar.MaxValue = hpTarget.MaxHealth;
         this._progressBar.Value = hpTarget.Health;

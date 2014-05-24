@@ -54,6 +54,8 @@ public class GameManager : MonoBehaviour {
     private int _wolfDeathCountEndGame = 0;
 
     public dfPanel winLosePanel;
+    public dfLabel winLoseLabel;
+    public dfLabel scoreLabel;
 
     public Grandma grandma;
     public BigBadWolf bigBadWolf;
@@ -74,6 +76,7 @@ public class GameManager : MonoBehaviour {
         Monster.Dead += WolfDeathCount;
         Grandma.Dead += Lose;
         Player.Dead += Lose;
+        BigBadWolf.Dead += Win;
     }
 
     void OnDisable()
@@ -81,6 +84,7 @@ public class GameManager : MonoBehaviour {
         Monster.Dead -= WolfDeathCount;
         Grandma.Dead -= Lose;
         Player.Dead -= Lose;
+        BigBadWolf.Dead -= Win;
     }
 
 
@@ -88,8 +92,8 @@ public class GameManager : MonoBehaviour {
     {
         _wolfSpawnManager = GameObject.FindGameObjectWithTag("Wolf Manager").GetComponent<WolfSpawnManager>();
         _cameraShake = GameObject.FindGameObjectWithTag("Camera").GetComponent<CameraShake>();
-        //WolfSpawn = new int[4] { 10, 20, 30, 40 };
-        WolfSpawn = new int[4] { 0, 0, 0, 1 }; //Debug
+        WolfSpawn = new int[4] { 10, 20, 30, 40 };
+        //WolfSpawn = new int[4] { 0, 0, 0, 1 }; //Debug
     }
 
 	// Use this for initialization
@@ -182,11 +186,15 @@ public class GameManager : MonoBehaviour {
     void Win() 
     {
         winLosePanel.IsVisible = true;
+        winLoseLabel.Text = "You Saved Grandmother!";
+        scoreLabel.Text = "You killed " + _wolfDeathCountEndGame + " Wolves";
     }
 
     void Lose() 
     {
         winLosePanel.IsVisible = true;
+        winLoseLabel.Text = "The Wolf Got You!";
+        scoreLabel.Text = "You killed " + _wolfDeathCountEndGame + " Wolves";
     }
 
     void GenericStage()

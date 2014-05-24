@@ -19,6 +19,17 @@ public class WolfSpawnManager : MonoBehaviour {
     public void OnEnable()
     {
         GameManager.StageChanged += IsLastStage;
+
+        _player = GameObject.FindGameObjectWithTag("Player").transform;
+        _grandma = GameObject.FindGameObjectWithTag("Grandma").transform;
+        grandmaSpot = _grandma.position;
+        // wolf.CreatePool();
+        _spawners = GameObject.FindGameObjectsWithTag("Spawn Points");
+
+        foreach (var points in _spawners)
+        {
+            _waypoints.Add(points.transform.position);
+        }
     }
     public void OnDisable()
     {
@@ -37,16 +48,7 @@ public class WolfSpawnManager : MonoBehaviour {
 
     void Awake()
     {
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
-        _grandma = GameObject.FindGameObjectWithTag("Grandma").transform;
-        grandmaSpot = _grandma.position;
-       // wolf.CreatePool();
-        _spawners = GameObject.FindGameObjectsWithTag("Spawn Points");
-
-        foreach (var points in _spawners)
-        {
-            _waypoints.Add(points.transform.position);
-        }
+        
     }
 
 	// Use this for initialization
@@ -91,7 +93,7 @@ public class WolfSpawnManager : MonoBehaviour {
         if (!isLastStage)
             return targets[index];
         else
-            return targets[0];
+            return _player;
     }
 
 
