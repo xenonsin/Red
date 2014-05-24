@@ -20,16 +20,7 @@ public class WolfSpawnManager : MonoBehaviour {
     {
         GameManager.StageChanged += IsLastStage;
 
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
-        _grandma = GameObject.FindGameObjectWithTag("Grandma").transform;
-        grandmaSpot = _grandma.position;
-        // wolf.CreatePool();
-        _spawners = GameObject.FindGameObjectsWithTag("Spawn Points");
 
-        foreach (var points in _spawners)
-        {
-            _waypoints.Add(points.transform.position);
-        }
     }
     public void OnDisable()
     {
@@ -48,7 +39,15 @@ public class WolfSpawnManager : MonoBehaviour {
 
     void Awake()
     {
-        
+        _player = GameObject.FindGameObjectWithTag("Player").transform;
+        _grandma = GameObject.FindGameObjectWithTag("Grandma").transform;
+        grandmaSpot = _grandma.position;
+        _spawners = GameObject.FindGameObjectsWithTag("Spawn Points");
+
+        foreach (var points in _spawners)
+        {
+            _waypoints.Add(points.transform.position);
+        }
     }
 
 	// Use this for initialization
@@ -66,18 +65,19 @@ public class WolfSpawnManager : MonoBehaviour {
         {
             int position = i % 4;
             //wolf.Spawn(_waypoints[position]);
-            Instantiate(wolf, _waypoints[position], Quaternion.identity);
             var wolfs = wolf.GetComponent<WolfFollow>();
             wolfs.target = GetTarget();
-            Debug.Log(wolfs.target);
+            Instantiate(wolf, _waypoints[position], Quaternion.identity);
+            
         }
     }
 
     public void SpawnBigBadWolf()
     {
-        Instantiate(bigBadWolf, grandmaSpot, Quaternion.identity);
         var wolfs = bigBadWolf.GetComponent<WolfFollow>();
         wolfs.target = GetTarget();
+        Instantiate(bigBadWolf, grandmaSpot, Quaternion.identity);
+        
     }
 
     Transform GetTarget()
