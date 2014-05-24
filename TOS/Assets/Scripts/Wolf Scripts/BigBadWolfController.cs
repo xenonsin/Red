@@ -1,19 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WolfController : MonoBehaviour {
-
+public class BigBadWolfController : MonoBehaviour {
 
     private float _distanceFromPlayer;
-   // private GameObject _player;
+    // private GameObject _player;
     //private GameObject _grandma;
 
     private WolfFollow _wolfAI; //wolf follow
-    private WolfSpriteManager _spriteManager;
+    private BigBadWolfSpriteManager _spriteManager;
     private tk2dSpriteAnimator _animator;
     private CameraShake _cameraShake;
     private AudioManager _audioManager;
-    private MeleeWeapon _meleeWeapon = new Claws();
+    private MeleeWeapon _meleeWeapon = new Claws(20f,40f,10f,70f,0.3f);
 
     public float minRange = 4f;
     public float attackDelay = 1f;
@@ -21,26 +20,28 @@ public class WolfController : MonoBehaviour {
     [SerializeField]
     private bool _canMove;
     public bool CanMove { get { return _canMove; } set { _canMove = value; } }
-	// Use this for initialization
-	void Start () {
-       // _player = GameObject.FindGameObjectWithTag("Player");
+    // Use this for initialization
+    void Start()
+    {
+        // _player = GameObject.FindGameObjectWithTag("Player");
         //_grandma = GameObject.FindGameObjectWithTag("Grandma");
         _wolfAI = this.GetComponent<WolfFollow>();
-        _spriteManager = this.GetComponent<WolfSpriteManager>();
+        _spriteManager = this.GetComponent<BigBadWolfSpriteManager>();
         _animator = this.GetComponentInChildren<tk2dSpriteAnimator>();
         _animator.AnimationEventTriggered += AnimationEventHandler;
         _cameraShake = GameObject.FindGameObjectWithTag("Camera").GetComponent<CameraShake>();
         _audioManager = GameObject.FindGameObjectWithTag("Audio Manager").GetComponent<AudioManager>();
         _canMove = true;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
 
-        if(_canMove)
-        GetDistance();
-	
-	}
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (_canMove)
+            GetDistance();
+
+    }
 
     void AnimationEventHandler(tk2dSpriteAnimator animator, tk2dSpriteAnimationClip clip, int frameNum)
     {
@@ -57,7 +58,7 @@ public class WolfController : MonoBehaviour {
         {
             var playerDistance = Vector3.Distance(transform.position, _wolfAI.target.position);
 
-            if (playerDistance > minRange)
+            if (playerDistance > _meleeWeapon.Range)
             {
                 _spriteManager.IsWalking = true;
                 _wolfAI.canFollow = true;
@@ -152,3 +153,4 @@ public class WolfController : MonoBehaviour {
         hit.rigidbody.AddForce(transform.forward * _meleeWeapon.Knockback, ForceMode.Impulse);
     }
 }
+

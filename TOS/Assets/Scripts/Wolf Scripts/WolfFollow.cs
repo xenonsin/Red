@@ -11,27 +11,36 @@ public class WolfFollow : AIPath
     public bool canFollow;
     /** Minimum velocity for moving */
     public float sleepVelocity = 0.4F;
-
-
     /** Effect which will be instantiated when end of path is reached.
      * \see OnTargetReached */
     public GameObject endOfPathEffect;
 
-    private Transform _player;
-    private Transform _grandma;
+   // private Transform _player;
+   // private Transform _grandma;
+
+    public void Awake()
+    {
+        //_player = gameobject.findgameobjectwithtag("player").transform;
+        //_grandma = gameobject.findgameobjectwithtag("grandma").transform;
+
+        //var targets = new list<transform>();
+        //targets.add(_player);
+        //targets.add(_grandma);
+
+        //int random = random.range(0, 300);
+        //int index = random % 2;
+
+        //if (!islaststage)
+        //    target = targets[index];
+        //else
+        //    target = _player;
+
+        base.Awake();
+    }
 
     public new void Start()
     {
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
-        _grandma = GameObject.FindGameObjectWithTag("Grandma").transform;
-
-        var targets = new List<Transform>();
-        targets.Add(_player);
-        targets.Add(_grandma);
-
-        int random = Random.Range(0,300);
-        int index = random % 2;
-        target = targets[index];
+        
         //Call Start in base script (AIPath)
         base.Start();
     }

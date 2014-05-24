@@ -70,7 +70,7 @@ public class PlayerAttackIso : MonoBehaviour {
 
         foreach (var hit in hitColliders)
         {
-            if (hit && hit.tag == "Enemy")
+            if (hit && hit.tag == "Enemy" || hit.tag == "Big Bad Wolf")
             {
                var cone = Mathf.Cos(_meleeWeapon.Angle * Mathf.Deg2Rad);
                 Vector3 dir = (hit.transform.position - transform.position).normalized;

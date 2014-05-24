@@ -4,17 +4,26 @@ using System.Collections;
 public class GrandmaBarEvents : MonoBehaviour {
 
     private dfProgressBar _progressBar;
-    private Grandma _player;
+    //private Grandma _player;
     private dfLabel _hpLabel;
+    public dfLabel name;
+   // private BigBadWolf _bbWolf;
+
+    private Entity hpTarget;
 
     void OnEnable()
     {
         Grandma.HpChange += UpdateValue;
+        BigBadWolf.HpChange += UpdateValue;
+        BigBadWolf.Alive += ChangeToWolf;
+        
     }
 
     void OnDisable()
     {
         Grandma.HpChange -= UpdateValue;
+        BigBadWolf.HpChange -= UpdateValue;
+        BigBadWolf.Alive -= ChangeToWolf;
     }
 
     // Called by Unity just before any of the Update methods is called the first time.
@@ -22,18 +31,18 @@ public class GrandmaBarEvents : MonoBehaviour {
     {
         // Obtain a reference to the dfProgressBar instance attached to this object
         this._progressBar = GetComponent<dfProgressBar>();
-        _player = GameObject.FindGameObjectWithTag("Grandma").GetComponent<Grandma>();
+        hpTarget = GameObject.FindGameObjectWithTag("Grandma").GetComponent<Grandma>();
         _hpLabel = GetComponentInChildren<dfLabel>();
 
-        this._progressBar.MaxValue = _player.MaxHealth;
-        this._progressBar.Value = _player.Health;
+        this._progressBar.MaxValue = hpTarget.MaxHealth;
+        this._progressBar.Value = hpTarget.Health;
         UpdateLabel();
 
     }
 
     void UpdateValue()
     {
-        this._progressBar.Value = _player.Health;
+        this._progressBar.Value = hpTarget.Health;
         UpdateLabel();
     }
 
@@ -41,6 +50,14 @@ public class GrandmaBarEvents : MonoBehaviour {
     {
         var value = (int)_progressBar.Value;
         _hpLabel.Text = value.ToString() + "/" + _progressBar.MaxValue.ToString();
+    }
+
+    void ChangeToWolf()
+    {
+        hpTarget = GameObject.FindGameObjectWithTag("Big Bad Wolf").GetComponent<BigBadWolf>();
+        this._progressBar.MaxValue = hpTarget.MaxHealth;
+        this._progressBar.Value = hpTarget.MaxHealth;
+        name.Text = "Big Bad Wolf";
     }
 
 }

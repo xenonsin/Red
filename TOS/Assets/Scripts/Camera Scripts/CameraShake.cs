@@ -9,10 +9,11 @@ public class CameraShake : MonoBehaviour
 
     void Update()
     {
+        /*
         if (Input.GetKeyDown("f"))
         {
             PlayShake(0.5f,5.0f,0.2f);
-        }
+        }*/
     }
 
     //This function is used outside (or inside) the script

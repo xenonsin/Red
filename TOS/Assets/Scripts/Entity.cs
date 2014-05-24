@@ -47,7 +47,10 @@ public abstract class Entity: MonoBehaviour {
         MaxHealth = newAmount;
     }
 
-
+    public virtual void Kill()
+    {
+        this.Recycle();
+    }
 
     public virtual void Awake()
     {

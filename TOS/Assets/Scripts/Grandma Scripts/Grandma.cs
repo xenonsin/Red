@@ -74,6 +74,11 @@ public class Grandma : Entity
 
     }
 
+    public override void Kill()
+    {
+        base.Kill();
+    }
+
     public void EndPanelClicked(dfControl ignore, dfMouseEventArgs args)
     {
         FullHeal();

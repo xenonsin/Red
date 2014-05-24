@@ -31,8 +31,11 @@ public class Snow : MonoBehaviour {
 
     void Follow()
     {
-        movementX = ((player.transform.position.x + offsetX - this.transform.position.x)) / maximumDistance;
-        movementZ = ((player.transform.position.z + offsetZ - this.transform.position.z)) / maximumDistance;
-        this.transform.position += new Vector3((movementX * playerVelocity * Time.deltaTime), 0, (movementZ * playerVelocity * Time.deltaTime));
+        if (player != null)
+        {
+            movementX = ((player.transform.position.x + offsetX - this.transform.position.x)) / maximumDistance;
+            movementZ = ((player.transform.position.z + offsetZ - this.transform.position.z)) / maximumDistance;
+            this.transform.position += new Vector3((movementX * playerVelocity * Time.deltaTime), 0, (movementZ * playerVelocity * Time.deltaTime));
+        }
     }
 }

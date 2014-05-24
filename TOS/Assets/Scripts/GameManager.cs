@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour {
         END
     };
 
-    private Stages _currentStage;
+    public Stages _currentStage;
     public Levels currentLevel;
 
     private bool hasSpawned = false;
@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour {
     private bool dialogVisible = false;
     public dfLabel dialogLabel;
     public float duration = 20f;
+    private bool wolfResponse;
 
     private bool showEndPanel;
     public dfPanel endPanel;
@@ -53,6 +54,11 @@ public class GameManager : MonoBehaviour {
     private int _wolfDeathCountEndGame = 0;
 
     public dfPanel winLosePanel;
+
+    public Grandma grandma;
+    public BigBadWolf bigBadWolf;
+
+    private CameraShake _cameraShake;
 
     public string[] Dialog = new string[]
     {
@@ -81,7 +87,9 @@ public class GameManager : MonoBehaviour {
     void Awake()
     {
         _wolfSpawnManager = GameObject.FindGameObjectWithTag("Wolf Manager").GetComponent<WolfSpawnManager>();
-        WolfSpawn = new int[4] { 10, 20, 30, 40 };
+        _cameraShake = GameObject.FindGameObjectWithTag("Camera").GetComponent<CameraShake>();
+        //WolfSpawn = new int[4] { 10, 20, 30, 40 };
+        WolfSpawn = new int[4] { 0, 0, 0, 1 }; //Debug
     }
 
 	// Use this for initialization
@@ -139,18 +147,22 @@ public class GameManager : MonoBehaviour {
 
     public void ChangeStageTo(Stages stage)
     {
+        if (StageChanged != null)
+            StageChanged(stage);
+
         _currentStage = stage;
         ChangeLevelTo(Levels.INTRO);
 
-        if(StageChanged != null)
-        StageChanged(stage);
+        
     }
 
     public void ChangeLevelTo(Levels level)
     {
+        if (LevelChanged != null)
+            LevelChanged(level);
+
         currentLevel = level;
-        if(LevelChanged != null)
-        LevelChanged(level);
+
     }
 
     public int ToInt(Stages stage)
@@ -217,17 +229,48 @@ public class GameManager : MonoBehaviour {
     #region Levels
     void Intro()
     {
+        //horrible code ahead.
+        if (_currentStage != Stages.MOUTH)
+        {
+
+            if (endButtonClicked)
+            {
+                if (!dialogVisible)
+                {
+                    ShowLabel();
+                    ResetValues();
+                }
+                else
+                {
+                    if (dialogLabel.Opacity > 0)
+                    {
+                        dialogLabel.Opacity -= Time.deltaTime / duration;
+                    }
+                    else
+                    {
+                        dialogVisible = false;
+                        ChangeLevelTo(Levels.MAIN);
+                    }
+                }
+            }
+        }
+        else 
+        {
+            LastStageIntro();
+        }
+    }
+
+    void LastStageIntro()
+    {
+        //horrible code ahead. crunch crunch time
         if (endButtonClicked)
         {
-            if (!dialogVisible)
+            if (!dialogVisible && !wolfResponse)
             {
                 ShowLabel();
-                HealPlayer();
-                _wolfDeathCount = 0;
-                hasSpawned = false;
-                showEndPanel = true;
+                ResetValues();
             }
-            else
+            else if (dialogVisible && !wolfResponse)
             {
                 if (dialogLabel.Opacity > 0)
                 {
@@ -236,18 +279,62 @@ public class GameManager : MonoBehaviour {
                 else
                 {
                     dialogVisible = false;
+                    wolfResponse = true;
+                   // ChangeLevelTo(Levels.MAIN);
+                }
+            }
+
+            else if (wolfResponse && !dialogVisible)
+            {
+                ShowResponse();
+                _cameraShake.PlayShake(4f, 5f, 0.3f);
+                
+            }
+            else if (dialogVisible && wolfResponse)
+            {
+                if (dialogLabel.Opacity > 0)
+                {
+                    dialogLabel.Opacity -= Time.deltaTime/10f;
+                }
+                else
+                {
+                    wolfResponse = false;
+                    dialogVisible = false;
                     ChangeLevelTo(Levels.MAIN);
                 }
             }
+
         }
     }
 
     void Mains()
     {
+        if (_currentStage != Stages.MOUTH)
+        {
+            if (!hasSpawned)
+            {
+                PlayHowl();
+                SpawnWolves();
+            }
+
+            if (_wolfDeathCount >= WolfSpawn[ToInt(_currentStage)])
+                ChangeLevelTo(Levels.END);
+        }
+        else
+        {
+            LastStageMain();
+        }
+    }
+
+    void LastStageMain()
+    {
         if (!hasSpawned)
         {
             PlayHowl();
             SpawnWolves();
+            KillGrandma();
+            SpawnBigBadWolf();
+
         }
 
         if (_wolfDeathCount >= WolfSpawn[ToInt(_currentStage)])
@@ -256,12 +343,23 @@ public class GameManager : MonoBehaviour {
 
     void End()
     {
-        if (showEndPanel)
+        if (_currentStage != Stages.MOUTH)
         {
-            showEndPanel = false;
-            StartCoroutine(ShowEndPanel());
+            if (showEndPanel)
+            {
+                showEndPanel = false;
+                StartCoroutine(ShowEndPanel());
+            }
+        }
+        else
+        {
+            LastStageEnd();
         }
 
+    }
+    void LastStageEnd()
+    {
+        ChangeStageTo(Stages.WIN);
     }
     #endregion
 
@@ -274,9 +372,25 @@ public class GameManager : MonoBehaviour {
         
     }
 
+    void ShowResponse()
+    {
+        dialogLabel.Opacity = 1;
+        dialogLabel.Color = Color.red;
+        dialogLabel.Text = "'The better to eat you with!'";      
+        dialogVisible = true;
+    }
+
     void HealPlayer()
     {
 
+    }
+
+    void ResetValues()
+    {
+        //HealPlayer();
+        _wolfDeathCount = 0;
+        hasSpawned = false;
+        showEndPanel = true;
     }
     #endregion
 
@@ -291,6 +405,16 @@ public class GameManager : MonoBehaviour {
         _wolfSpawnManager.SpawnWolves(WolfSpawn[ToInt(_currentStage)]);
         Debug.Log(WolfSpawn[ToInt(_currentStage)]);
         hasSpawned = true;
+    }
+
+    void KillGrandma()
+    {
+        grandma.Kill();
+    }
+    void SpawnBigBadWolf()
+    {
+        _wolfSpawnManager.SpawnBigBadWolf();
+        
     }
     #endregion
 
